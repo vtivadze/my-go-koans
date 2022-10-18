@@ -2,7 +2,7 @@ package go_koans
 
 import (
 	"bytes"
-	"strings"
+	"io"
 )
 
 func aboutCommonInterfaces() {
@@ -30,8 +30,7 @@ func aboutCommonInterfaces() {
 		in.WriteString("hello world")
 
 		out := new(bytes.Buffer)
-		line, _ := in.ReadBytes(' ')
-		out.Write([]byte(strings.TrimSpace(string(line))))
+		io.CopyN(out, in, 5)
 
 		assert(out.String() == "hello") // duplicate only a portion of the io.Reader
 	}
